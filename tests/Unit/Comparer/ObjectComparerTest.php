@@ -269,4 +269,101 @@ class ObjectComparerTest extends TestCase
 
         $this->assertEmpty($result);
     }
+
+    /**
+     * @return void
+     */
+    public function testCompareNullAttributeNotChanged(): void
+    {
+        $oldValueChange = null;
+        $newValueChange = null;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setNullProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setNullProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareArrayAttribute(): void
+    {
+        $oldValueChange = [1, "2", 3];
+        $newValueChange = [1, 2, 3];
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setArrayProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setArrayProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals('arrayProperty', $objectChange->getAttribute());
+        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
+        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareArrayAttributeNotChanged(): void
+    {
+        $oldValueChange = [1, "2", 3];
+        $newValueChange = [1, "2", 3];
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setArrayProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setArrayProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareStringAttribute(): void
+    {
+        $oldValueChange = "foo";
+        $newValueChange = "bar";
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setStringProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setStringProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals('stringProperty', $objectChange->getAttribute());
+        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
+        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareStringAttributeNotChanged(): void
+    {
+        $oldValueChange = "foo";
+        $newValueChange = "foo";
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setStringProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setStringProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
 }
