@@ -45,7 +45,28 @@ class ObjectComparerTest extends TestCase
         $this->assertEquals('privateProperty', $objectChange->getAttribute());
         $this->assertEquals($oldValueChange, $objectChange->getOldValue());
         $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
 
+    /**
+     * @return void
+     */
+    public function testComparePropertyAdded(): void
+    {
+        $addedPropertyName = 'addedProperty';
+        $addedPropertyValue = 'addedPropertyValue';
 
+        $oldValue = new ObjectClassFixture();
+        $newValue = new ObjectClassFixture();
+        $newValue->$addedPropertyName = $addedPropertyValue;
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals($addedPropertyName, $objectChange->getAttribute());
+        $this->assertEquals(null, $objectChange->getOldValue());
+        $this->assertEquals($addedPropertyValue, $objectChange->getNewValue());
     }
 }

@@ -56,14 +56,6 @@ class ObjectClassFixture
     private $floatProperty = -1.1;
 
     /**
-     * @throws \Exception
-     */
-    public function __construct()
-    {
-        $this->objectProperty = new DateTime();
-    }
-
-    /**
      * @return mixed
      */
     public function getPrivateProperty()
