@@ -3,11 +3,13 @@
         "phpunit/phpunit": "^8.4"
     },
     "autoload": {
-        "psr-4": {
-            "SebVie\\PhpObjectHistory\\": [
-                "src/",
-                "test/"
-            ]
-        }
+      "psr-4": {
+        "SebVie\\PhpObjectHistory\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "SebVie\\PhpObjectHistory\\Tests\\": "tests/"
+      }
     }
 }
