@@ -26,7 +26,7 @@ class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
     public function format(object $object): string
     {
         foreach ($this->formatters as $formatter) {
-            if ($formatter->supportsInput($object)) {
+            if ($formatter->supports($object)) {
                 return $formatter->format($object);
             }
         }

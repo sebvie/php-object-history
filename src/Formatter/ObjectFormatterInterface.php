@@ -12,7 +12,8 @@ interface ObjectFormatterInterface
     public function format(object $object): string;
 
     /**
+     * @param object $object
      * @return bool
      */
-    public function supportsInput(object $object): bool;
+    public function supports(object $object): bool;
 }

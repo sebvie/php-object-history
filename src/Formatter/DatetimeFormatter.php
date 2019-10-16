@@ -24,7 +24,7 @@ class DatetimeFormatter implements ObjectFormatterInterface
      * @param object $object
      * @return bool
      */
-    public function supportsInput(object $object): bool
+    public function supports(object $object): bool
     {
         return $object instanceof DateTime;
     }

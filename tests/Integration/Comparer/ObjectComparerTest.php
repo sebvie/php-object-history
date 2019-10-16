@@ -48,4 +48,42 @@ class ObjectComparerTest extends TestCase
         $this->assertEquals($objectPropertyOld->format('c'), $objectChange->getOldValue());
         $this->assertEquals($objectPropertyNew->format('c'), $objectChange->getNewValue());
     }
+
+    /**
+     * @return void
+     */
+    public function testCompareObjectPropertySameValueNoChange(): void
+    {
+        $date = new \DateTime('now');
+        $objectPropertyOld = clone($date);
+        $objectPropertyNew = clone($date);
+
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setObjectProperty($objectPropertyOld);
+        $newValue = new ObjectClassFixture();
+        $newValue->setObjectProperty($objectPropertyNew);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty( $result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareObjectToString(): void
+    {
+        $date = new \DateTime('now');
+        $objectPropertyOld = clone($date);
+        $objectPropertyNew = clone($date);
+
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setObjectProperty($objectPropertyOld);
+        $newValue = new ObjectClassFixture();
+        $newValue->setObjectProperty($objectPropertyNew);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty( $result);
+    }
 }
