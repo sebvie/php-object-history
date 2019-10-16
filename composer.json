@@ -4,12 +4,12 @@
     },
     "autoload": {
       "psr-4": {
-        "SebVie\\PhpObjectHistory\\": "src/"
+        "PhpObjectHistory\\": "src/"
       }
     },
     "autoload-dev": {
       "psr-4": {
-        "SebVie\\PhpObjectHistory\\Tests\\": "tests/"
+        "PhpObjectHistory\\Tests\\": "tests/"
       }
     }
 }

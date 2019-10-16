@@ -1,6 +1,6 @@
 <?php
 
-namespace SebVie\PhpObjectHistory;
+namespace PhpObjectHistory;
 
 class ObjectHistory
 {

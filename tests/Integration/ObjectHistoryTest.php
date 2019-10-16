@@ -1,9 +1,9 @@
 <?php
 
-namespace SebVie\PhpObjectHistory\Tests\Integration;
+namespace PhpObjectHistory\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
-use SebVie\PhpObjectHistory\ObjectHistory;
+use PhpObjectHistory\ObjectHistory;
 
 class ObjectHistoryTest extends TestCase
 {
