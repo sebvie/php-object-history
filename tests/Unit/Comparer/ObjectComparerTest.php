@@ -2,7 +2,6 @@
 
 namespace PhpObjectComparer\Tests\Unit\Comparer;
 
-use PhpObjectHistory\Formatter\ObjectFormatterHandler;
 use PHPUnit\Framework\TestCase;
 use PhpObjectHistory\Comparer\ObjectComparer;
 use PhpObjectHistory\Tests\Fixture\ObjectClassFixture;
@@ -10,7 +9,7 @@ use PhpObjectHistory\Tests\Fixture\ObjectClassFixture;
 class ObjectComparerTest extends TestCase
 {
 
-    const FIXTURE_PROPERTY_COUNT = 9;
+    const FIXTURE_PROPERTY_COUNT = 10;
 
     /**
      * @var ObjectComparer
@@ -151,4 +150,123 @@ class ObjectComparerTest extends TestCase
         $this->assertEquals($addedPropertyValue, $objectChange->getNewValue());
     }
 
+    /**
+     * @return void
+     */
+    public function testCompareBoolAttribute(): void
+    {
+        $oldValueChange = true;
+        $newValueChange = false;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setBoolProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setBoolProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals('boolProperty', $objectChange->getAttribute());
+        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
+        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareBoolAttributeNotChanged(): void
+    {
+        $oldValueChange = true;
+        $newValueChange = true;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setBoolProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setBoolProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareIntAttribute(): void
+    {
+        $oldValueChange = 1;
+        $newValueChange = 2;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setIntProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setIntProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals('intProperty', $objectChange->getAttribute());
+        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
+        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareIntAttributeNotChanged(): void
+    {
+        $oldValueChange = -1;
+        $newValueChange = -1;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setIntProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setIntProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareFloatAttribute(): void
+    {
+        $oldValueChange = 1.1;
+        $newValueChange = 1.0;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setFloatProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setFloatProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertCount(1, $result);
+
+        $objectChange = $result[0];
+
+        $this->assertEquals('floatProperty', $objectChange->getAttribute());
+        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
+        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompareFloatAttributeNotChanged(): void
+    {
+        $oldValueChange = -1.111111;
+        $newValueChange = -1.111111;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setFloatProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setFloatProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
 }

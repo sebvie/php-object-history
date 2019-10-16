@@ -46,6 +46,11 @@ class ObjectClassFixture
     private $nullProperty = null;
 
     /**
+     * @var bool
+     */
+    private $boolProperty = true;
+
+    /**
      * @var int
      */
     private $intProperty = -1;
@@ -214,6 +219,24 @@ class ObjectClassFixture
     public function setFloatProperty(float $floatProperty): ObjectClassFixture
     {
         $this->floatProperty = $floatProperty;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBoolProperty(): bool
+    {
+        return $this->boolProperty;
+    }
+
+    /**
+     * @param bool $boolProperty
+     * @return ObjectClassFixture
+     */
+    public function setBoolProperty(bool $boolProperty): ObjectClassFixture
+    {
+        $this->boolProperty = $boolProperty;
         return $this;
     }
 }
