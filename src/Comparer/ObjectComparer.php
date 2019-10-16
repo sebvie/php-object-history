@@ -31,8 +31,8 @@ class ObjectComparer implements ComparatorInterface
 
     /**
      * @param object $object
+     *
      * @return array
-     * @throws \ReflectionException
      */
     protected function getProperties(object $object): array
     {
