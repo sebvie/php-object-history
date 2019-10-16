@@ -2,6 +2,7 @@
 
 namespace PhpObjectComparer\Tests\Unit\Comparer;
 
+use PhpObjectHistory\Formatter\ObjectFormatterHandler;
 use PHPUnit\Framework\TestCase;
 use PhpObjectHistory\Comparer\ObjectComparer;
 use PhpObjectHistory\Tests\Fixture\ObjectClassFixture;
@@ -149,4 +150,5 @@ class ObjectComparerTest extends TestCase
         $this->assertEquals(null, $objectChange->getOldValue());
         $this->assertEquals($addedPropertyValue, $objectChange->getNewValue());
     }
+
 }

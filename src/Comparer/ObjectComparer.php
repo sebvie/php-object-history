@@ -3,10 +3,27 @@
 namespace PhpObjectHistory\Comparer;
 
 use PhpObjectHistory\Entity\ObjectChange;
+use PhpObjectHistory\Formatter\ObjectFormatterHandlerInterface;
 use ReflectionObject;
 
 class ObjectComparer implements ComparatorInterface
 {
+
+    /**
+     * @var ObjectFormatterHandlerInterface
+     */
+    protected $objectFormatter;
+
+
+    /**
+     * @param ObjectFormatterHandlerInterface $objectFormatter
+     * @return ObjectComparer
+     */
+    public function setObjectFormatter(ObjectFormatterHandlerInterface $objectFormatter): ObjectComparer
+    {
+        $this->objectFormatter = $objectFormatter;
+        return $this;
+    }
 
     /**
      * @param object $oldValue
@@ -46,7 +63,11 @@ class ObjectComparer implements ComparatorInterface
 
         foreach ($properties as $property) {
             $property->setAccessible(true);
-            $result[$property->getName()] = $property->getValue($object);
+            $propertyValue = $property->getValue($object);
+            if (is_object($propertyValue)) {
+                $propertyValue = $this->objectFormatter->format($propertyValue);
+            }
+            $result[$property->getName()] = $propertyValue;
         }
 
         return $result;
