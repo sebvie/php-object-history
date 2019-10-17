@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/sebvie/EntityToRestBundleDemo.svg?branch=master)](https://travis-ci.org/sebvie/EntityToRestBundleDemo)
-[![Coverage Status](https://coveralls.io/repos/github/sebvie/EntityToRestBundleDemo/badge.svg?branch=master)](https://coveralls.io/github/sebvie/EntityToRestBundleDemo?branch=master)
-[![codecov](https://codecov.io/gh/sebvie/EntityToRestBundleDemo/branch/master/graph/badge.svg)](https://codecov.io/gh/sebvie/EntityToRestBundleDemo)
+[![Build Status](https://travis-ci.org/sebvie/php-object-history.svg?branch=master)](https://travis-ci.org/sebvie/php-object-history)
+[![Coverage Status](https://coveralls.io/repos/github/sebvie/php-object-history/badge.svg?branch=master)](https://coveralls.io/github/sebvie/php-object-history?branch=master)
+[![codecov](https://codecov.io/gh/sebvie/php-object-history/branch/master/graph/badge.svg)](https://codecov.io/gh/sebvie/php-object-history)
 
 
 # php-object-history
