@@ -11,5 +11,9 @@
       "psr-4": {
         "PhpObjectHistory\\Tests\\": "tests/"
       }
-    }
+    },
+  "require": {
+    "ext-mbstring": "*",
+    "php": "^7.2"
+  }
 }

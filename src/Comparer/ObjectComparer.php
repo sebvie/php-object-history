@@ -4,7 +4,6 @@ namespace PhpObjectHistory\Comparer;
 
 use PhpObjectHistory\Entity\ObjectChange;
 use PhpObjectHistory\Formatter\ObjectFormatterHandlerInterface;
-use ReflectionObject;
 
 class ObjectComparer implements ComparatorInterface
 {
@@ -12,16 +11,16 @@ class ObjectComparer implements ComparatorInterface
     /**
      * @var ObjectFormatterHandlerInterface
      */
-    protected $objectFormatter;
+    protected $objectFormatterHandler;
 
 
     /**
-     * @param ObjectFormatterHandlerInterface $objectFormatter
+     * @param ObjectFormatterHandlerInterface $objectFormatterHandler
      * @return ObjectComparer
      */
-    public function setObjectFormatter(ObjectFormatterHandlerInterface $objectFormatter): ObjectComparer
+    public function setObjectFormatterHandler(ObjectFormatterHandlerInterface $objectFormatterHandler): ObjectComparer
     {
-        $this->objectFormatter = $objectFormatter;
+        $this->objectFormatterHandler = $objectFormatterHandler;
         return $this;
     }
 
@@ -40,37 +39,10 @@ class ObjectComparer implements ComparatorInterface
             throw new \InvalidArgumentException('new value should be an object');
         }
 
-        $oldProperties = $this->getProperties($oldValue);
-        $newProperties = $this->getProperties($newValue);
+        $oldProperties = $this->objectFormatterHandler->convertObjectToArray($oldValue);
+        $newProperties = $this->objectFormatterHandler->convertObjectToArray($newValue);
 
         return $this->compareProperties($oldProperties, $newProperties);
-    }
-
-    /**
-     * @param object $object
-     *
-     * @return array
-     */
-    protected function getProperties(object $object): array
-    {
-        $result = [];
-        $reflectionClass = new ReflectionObject($object);
-        $properties = $reflectionClass->getProperties();
-
-        if (empty($properties)) {
-            return $result;
-        }
-
-        foreach ($properties as $property) {
-            $property->setAccessible(true);
-            $propertyValue = $property->getValue($object);
-            if (is_object($propertyValue)) {
-                $propertyValue = $this->objectFormatter->format($propertyValue);
-            }
-            $result[$property->getName()] = $propertyValue;
-        }
-
-        return $result;
     }
 
     /**

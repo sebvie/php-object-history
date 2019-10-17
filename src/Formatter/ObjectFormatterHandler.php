@@ -2,6 +2,7 @@
 
 namespace PhpObjectHistory\Formatter;
 
+use ReflectionObject;
 
 class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
 {
@@ -20,10 +21,40 @@ class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
 
     /**
      * @param object $object
+     * @return array
+     * @throws FormatterException
+     */
+    public function convertObjectToArray(object $object): array
+    {
+        $result = [];
+        $reflectionClass = new ReflectionObject($object);
+        $properties = $reflectionClass->getProperties();
+
+        if (empty($properties)) {
+            return $result;
+        }
+
+        foreach ($properties as $property) {
+            $property->setAccessible(true);
+            $propertyValue = $property->getValue($object);
+            if (is_object($propertyValue)) {
+                $propertyValue = $this->formatPropertyToString($propertyValue);
+            }
+            if (is_array($propertyValue)) {
+                $propertyValue = $this->formatArrayToString($propertyValue);
+            }
+            $result[$property->getName()] = $propertyValue;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param object $object
      * @return string
      * @throws FormatterException
      */
-    public function format(object $object): string
+    protected function formatPropertyToString(object $object): string
     {
         foreach ($this->formatters as $formatter) {
             if ($formatter->supports($object)) {
@@ -32,6 +63,20 @@ class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
         }
 
         throw new FormatterException('no formatter found for object ' . get_class($object));
+    }
+
+    /**
+     * @param array $object
+     * @return string
+     */
+    protected function formatArrayToString(array $object): string
+    {
+        $oneDimensionalArray = array();
+        array_walk_recursive($object, function($a) use (&$oneDimensionalArray) {
+            $oneDimensionalArray[] = $a;
+        });
+
+        return implode(',', $oneDimensionalArray);
     }
 
     /**

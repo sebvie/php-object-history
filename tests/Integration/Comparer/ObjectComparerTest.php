@@ -22,7 +22,7 @@ class ObjectComparerTest extends BaseTestCase
     {
         parent::setUp();
         $this->subject = new ObjectComparer();
-        $this->subject->setObjectFormatter(new ObjectFormatterHandler());
+        $this->subject->setObjectFormatterHandler(new ObjectFormatterHandler());
     }
 
     /**

@@ -7,8 +7,8 @@ interface ObjectFormatterHandlerInterface
 
     /**
      * @param object $object
-     * @return string
+     * @return array
      */
-    public function format(object $object): string;
+    public function convertObjectToArray(object $object): array;
 
 }

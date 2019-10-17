@@ -34,7 +34,7 @@ class ObjectFormatterHandlerTest extends BaseTestCase
     {
         $input = new DateTime();
 
-        $result = $this->subject->format($input);
+        $result = $this->subject->formatPropertyToString($input);
 
         $this->assertEquals($input->format('c'), $result);
     }
@@ -47,6 +47,6 @@ class ObjectFormatterHandlerTest extends BaseTestCase
         $this->expectException(FormatterException::class);
         $input = new \stdClass();
 
-        $this->subject->format($input);
+        $this->subject->formatPropertyToString($input);
     }
 }

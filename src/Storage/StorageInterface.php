@@ -7,7 +7,7 @@ use PhpObjectHistory\Entity\ObjectChange;
 interface StorageInterface
 {
     /**
-     * @param ObjectChange $objectChange
+     * @param ObjectChange[] $objectChanges
      */
-    public function addObjectChange(ObjectChange $objectChange): void;
+    public function addObjectChanges(array $objectChanges): void;
 }
