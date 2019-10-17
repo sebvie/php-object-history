@@ -50,7 +50,7 @@ class CsvFileStorageTest extends BaseTestCase
 
         $this->assertStringContainsString(
             $objectChangeAttribute,
-            mb_convert_encoding($lines[0], 'UTF-8', 'UTF-16LE')
+            $lines[0]
         );
         $this->assertStringContainsString($objectChangeValue, $lines[2]);
 

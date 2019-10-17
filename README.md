@@ -25,13 +25,13 @@ Add objects:
 
 $object = new \stdClass();
 $object->testProperty = 1;
-$object->testPropertyUnchanged = 1;
+$object->testPropertyUnchanged = true;
 
 $objectHistory->addObject($object);
 
 $object = new \stdClass();
 $object->testProperty = 2;
-$object->testPropertyUnchanged = 1;
+$object->testPropertyUnchanged = true;
 
 $objectHistory->addObject($object);
 ```
@@ -39,12 +39,12 @@ $objectHistory->addObject($object);
 Result is csv file containing:
 ```
 testProperty,testPropertyUnchanged
-1
+1;true
 2
 ```
+##Custom Formatters
 
-
-You can use custom Formatters to flatten your object:
+You can add custom Formatters to flatten your object:
 ```
 use PhpObjectHistory\Formatter\ObjectFormatterInterface
 
@@ -70,8 +70,11 @@ class ToStringFormatter implements ObjectFormatterInterface
     }
 }
 ```
+add the formatter:
 
-and implement custom storages:
+
+
+## Implement custom Storages:
 
 ```
 use PhpObjectHistory\Entity\ObjectChange;
@@ -114,4 +117,13 @@ class InMemoryStorage implements StorageInterface
 
 }
 ```
+
+Available Storage:
+- CsvFileStorage
+- InMemoryStorage
+
+Available Formatters:
+- DatetimeFormatter
+- ToStringFormatter
+
 

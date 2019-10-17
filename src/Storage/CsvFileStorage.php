@@ -143,7 +143,10 @@ class CsvFileStorage implements StorageInterface
             $this->csvFileHandle = fopen($this->csvFilePath, 'w');
         }
         $data = array_map(function($cell){
-            return mb_convert_encoding($cell, $this->csvEncoding, 'UTF-8');
+            if (is_bool($cell)) {
+                $cell = ($cell === true ? 'true' : 'false');
+            }
+            return $cell;
         }, $data);
 
         fputcsv($this->csvFileHandle, $data, $this->csvDelimiter);

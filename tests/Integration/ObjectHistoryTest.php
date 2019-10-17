@@ -78,18 +78,14 @@ class ObjectHistoryTest extends BaseTestCase
         $objectHistory->addObject($object);
 
         $filename = $this->getAbsolutePath(self::CSV_FILE_PATH);
-        $lines = file($filename, FILE_IGNORE_NEW_LINES);
+        $content = file_get_contents($filename);
         $this->assertEquals(
-            'testProperty;testPropertyUnchanged',
-            mb_convert_encoding($lines[0], 'UTF-8', 'UTF-16LE')
-        );
-        $this->assertEquals(
-            1,
-            mb_convert_encoding($lines[1], 'UTF-8', 'UTF-16LE')
-        );
-        $this->assertEquals(
-            2,
-            mb_convert_encoding($lines[2], 'UTF-8', 'UTF-16LE')
-        );
+            <<<HEREDOC
+testProperty;testPropertyUnchanged
+1;1
+2;
+
+HEREDOC
+            , $content);
     }
 }
