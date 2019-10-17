@@ -32,20 +32,28 @@ class CsvFileStorageTest extends BaseTestCase
      */
     public function testAddFileStorageChange(): void
     {
+        $objectChangeValue = 2;
+        $objectChangeAttribute = 'privateProperty';
         $initialObject = new ObjectClassFixture();
         $objectChange = new ObjectChange();
-        $objectChange->setAttribute('privateProperty');
+        $objectChange->setAttribute($objectChangeAttribute);
         $objectChange->setOldValue(null);
-        $objectChange->setNewValue(2);
+        $objectChange->setNewValue($objectChangeValue);
 
         $csvFilePath = $this->getAbsolutePath(self::CSV_FILE_PATH);
         $this->subject->setCsvFilePath($csvFilePath);
         $this->subject->setInitialObject($initialObject);
         $this->subject->addObjectChanges([$objectChange]);
 
-        $file = file_get_contents($csvFilePath);
+        $lines = file($csvFilePath, FILE_IGNORE_NEW_LINES);
+        $this->assertCount(3, $lines);
 
-        $this->assertNotEmpty($file);
+        $this->assertStringContainsString(
+            $objectChangeAttribute,
+            mb_convert_encoding($lines[0], 'UTF-8', 'UTF-16LE')
+        );
+        $this->assertStringContainsString($objectChangeValue, $lines[2]);
+
     }
 
 }

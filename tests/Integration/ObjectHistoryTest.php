@@ -45,8 +45,8 @@ class ObjectHistoryTest extends BaseTestCase
 
         $this->subject->addObject($object);
 
-        $file = file_get_contents($this->getAbsolutePath(self::CSV_FILE_PATH));
-
-        $this->assertNotEmpty($file);
+        $filename = $this->getAbsolutePath(self::CSV_FILE_PATH);
+        $lines = file($filename, FILE_IGNORE_NEW_LINES);
+        $this->assertCount(2, $lines);
     }
 }
