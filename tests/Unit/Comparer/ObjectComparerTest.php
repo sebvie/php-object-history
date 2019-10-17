@@ -292,8 +292,8 @@ class ObjectComparerTest extends BaseTestCase
      */
     public function testCompareArrayAttribute(): void
     {
-        $oldValueChange = [1, "2", 3];
-        $newValueChange = [1, 2, 3];
+        $oldValueChange = [1, 2, 3];
+        $newValueChange = [1, 2];
         $oldValue = new ObjectClassFixture();
         $oldValue->setArrayProperty($oldValueChange);
         $newValue = new ObjectClassFixture();
@@ -306,8 +306,8 @@ class ObjectComparerTest extends BaseTestCase
         $objectChange = $result[0];
 
         $this->assertEquals('arrayProperty', $objectChange->getAttribute());
-        $this->assertEquals($oldValueChange, $objectChange->getOldValue());
-        $this->assertEquals($newValueChange, $objectChange->getNewValue());
+        $this->assertEquals(implode(',', $oldValueChange), $objectChange->getOldValue());
+        $this->assertEquals(implode(',', $newValueChange), $objectChange->getNewValue());
     }
 
     /**

@@ -30,23 +30,26 @@ class ObjectFormatterHandlerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testFormatDatetime(): void
+    public function testConvertObjectToArray(): void
     {
-        $input = new DateTime();
+        $date = new DateTime();
+        $input = new \stdClass();
+        $input->date = $date;
 
-        $result = $this->subject->formatPropertyToString($input);
+        $result = $this->subject->convertObjectToArray($input);
 
-        $this->assertEquals($input->format('c'), $result);
+        $this->assertEquals(['date' => $date->format('c')], $result);
     }
 
     /**
      * @return void
      */
-    public function testFormatThrowException(): void
+    public function testConvertObjectToArrayThrowException(): void
     {
         $this->expectException(FormatterException::class);
         $input = new \stdClass();
+        $input->canNotConvert = new \stdClass();
 
-        $this->subject->formatPropertyToString($input);
+        $this->subject->convertObjectToArray($input);
     }
 }

@@ -3,6 +3,7 @@
 namespace PhpObjectHistory\Comparer;
 
 use PhpObjectHistory\Entity\ObjectChange;
+use PhpObjectHistory\Formatter\ObjectFormatterHandler;
 use PhpObjectHistory\Formatter\ObjectFormatterHandlerInterface;
 
 class ObjectComparer implements ComparatorInterface
@@ -13,6 +14,10 @@ class ObjectComparer implements ComparatorInterface
      */
     protected $objectFormatterHandler;
 
+    public function __construct()
+    {
+        $this->objectFormatterHandler = new ObjectFormatterHandler();
+    }
 
     /**
      * @param ObjectFormatterHandlerInterface $objectFormatterHandler

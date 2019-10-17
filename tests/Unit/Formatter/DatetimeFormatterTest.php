@@ -9,8 +9,6 @@ use DateTime;
 class DatetimeFormatterTest extends BaseTestCase
 {
 
-    const FIXTURE_PROPERTY_COUNT = 9;
-
     /**
      * @var DatetimeFormatter
      */
