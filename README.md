@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/sebvie/EntityToRestBundleDemo.svg?branch=master)](https://travis-ci.org/sebvie/EntityToRestBundleDemo)
+[![Coverage Status](https://coveralls.io/repos/github/sebvie/EntityToRestBundleDemo/badge.svg?branch=master)](https://coveralls.io/github/sebvie/EntityToRestBundleDemo?branch=master)
+[![codecov](https://codecov.io/gh/sebvie/EntityToRestBundleDemo/branch/master/graph/badge.svg)](https://codecov.io/gh/sebvie/EntityToRestBundleDemo)
+
+
 # php-object-history
 The package records changes of a PHP object and persists it to a storage. 
 This can be useful if you have a stream of data and you only want the get the change set and throw away the other data to reduce memory usage.
