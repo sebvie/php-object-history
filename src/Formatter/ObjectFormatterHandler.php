@@ -17,6 +17,7 @@ class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
     public function __construct()
     {
         $this->formatters[] = new DatetimeFormatter();
+        $this->formatters[] = new ToStringFormatter();
     }
 
     /**
@@ -39,8 +40,7 @@ class ObjectFormatterHandler implements ObjectFormatterHandlerInterface
             $propertyValue = $property->getValue($object);
             if (is_object($propertyValue)) {
                 $propertyValue = $this->formatPropertyToString($propertyValue);
-            }
-            if (is_array($propertyValue)) {
+            } else if (is_array($propertyValue)) {
                 $propertyValue = $this->formatArrayToString($propertyValue);
             }
             $result[$property->getName()] = $propertyValue;

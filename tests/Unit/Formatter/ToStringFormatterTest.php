@@ -3,14 +3,15 @@
 namespace PhpObjectComparer\Tests\Unit\Formatter;
 
 use PhpObjectHistory\Tests\BaseTestCase;
-use PhpObjectHistory\Formatter\DatetimeFormatter;
+use PhpObjectHistory\Formatter\ToStringFormatter;
 use DateTime;
+use PhpObjectHistory\Tests\Fixture\ToStringClassFixture;
 
-class DatetimeFormatterTest extends BaseTestCase
+class ToStringFormatterTest extends BaseTestCase
 {
 
     /**
-     * @var DatetimeFormatter
+     * @var ToStringFormatter
      */
     protected $subject;
 
@@ -21,7 +22,7 @@ class DatetimeFormatterTest extends BaseTestCase
     public function setup(): void
     {
         parent::setUp();
-        $this->subject = new DatetimeFormatter();
+        $this->subject = new ToStringFormatter();
     }
 
     /**
@@ -29,11 +30,13 @@ class DatetimeFormatterTest extends BaseTestCase
      */
     public function testFormat(): void
     {
-        $object = new DateTime();
+        $propertyValue = 1111;
+        $object = new ToStringClassFixture();
+        $object->setPrivateProperty($propertyValue);
 
         $result = $this->subject->format($object);
 
-        $this->assertEquals($object->format('c'), $result);
+        $this->assertSame((string) $propertyValue, $result);
     }
 
     /**
@@ -41,7 +44,7 @@ class DatetimeFormatterTest extends BaseTestCase
      */
     public function testSupports(): void
     {
-        $object = new DateTime();
+        $object = new ToStringClassFixture();
 
         $result = $this->subject->supports($object);
 
