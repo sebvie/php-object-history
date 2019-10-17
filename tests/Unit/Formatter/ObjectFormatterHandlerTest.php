@@ -2,13 +2,12 @@
 
 namespace PhpObjectComparer\Tests\Unit\Formatter;
 
-use PhpObjectHistory\Formatter\DatetimeFormatter;
+use PhpObjectHistory\Tests\BaseTestCase;
 use PhpObjectHistory\Formatter\FormatterException;
 use PhpObjectHistory\Formatter\ObjectFormatterHandler;
-use PHPUnit\Framework\TestCase;
 use DateTime;
 
-class ObjectFormatterHandlerTest extends TestCase
+class ObjectFormatterHandlerTest extends BaseTestCase
 {
 
     const FIXTURE_PROPERTY_COUNT = 9;

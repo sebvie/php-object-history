@@ -2,11 +2,11 @@
 
 namespace PhpObjectComparer\Tests\Unit\Comparer;
 
-use PHPUnit\Framework\TestCase;
+use PhpObjectHistory\Tests\BaseTestCase;
 use PhpObjectHistory\Comparer\ObjectComparer;
 use PhpObjectHistory\Tests\Fixture\ObjectClassFixture;
 
-class ObjectComparerTest extends TestCase
+class ObjectComparerTest extends BaseTestCase
 {
 
     const FIXTURE_PROPERTY_COUNT = 10;

@@ -2,10 +2,10 @@
 
 namespace PhpObjectHistory\Tests\Integration;
 
-use PHPUnit\Framework\TestCase;
+use PhpObjectHistory\Tests\BaseTestCase;
 use PhpObjectHistory\ObjectHistory;
 
-class ObjectHistoryTest extends TestCase
+class ObjectHistoryTest extends BaseTestCase
 {
     /**
      * @var ObjectHistory

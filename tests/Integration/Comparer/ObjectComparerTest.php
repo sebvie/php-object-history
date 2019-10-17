@@ -2,12 +2,12 @@
 
 namespace PhpObjectComparer\Tests\Integration\Comparer;
 
+use PhpObjectHistory\Tests\BaseTestCase;
 use PhpObjectHistory\Formatter\ObjectFormatterHandler;
-use PHPUnit\Framework\TestCase;
 use PhpObjectHistory\Comparer\ObjectComparer;
 use PhpObjectHistory\Tests\Fixture\ObjectClassFixture;
 
-class ObjectComparerTest extends TestCase
+class ObjectComparerTest extends BaseTestCase
 {
     /**
      * @var ObjectComparer
