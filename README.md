@@ -1,7 +1,7 @@
 # php-object-history
 The package records changes of a PHP object and persists it to a storage. This can be useful if you have a stream of data and you only want the get the changeset of it and throw away the other data.
 
-Example Usage:
+## Example:
 
 Inititate Storage and Comparer:
 ```
@@ -42,7 +42,7 @@ testProperty,testPropertyUnchanged
 1;true
 2
 ```
-##Custom Formatters
+## Custom Formatters
 
 You can add custom Formatters to flatten your object:
 ```
@@ -84,7 +84,7 @@ $objectComparer->getObjectFormatterHandler()->addFormatter($formatter);
 ```
 
 
-## Implement custom Storages:
+## Implement custom Storages
 
 ```
 use PhpObjectHistory\Entity\ObjectChange;
@@ -128,11 +128,11 @@ class InMemoryStorage implements StorageInterface
 }
 ```
 
-Available Storage:
+## Available Storage
 - CsvFileStorage
 - InMemoryStorage
 
-Available Formatters:
+## Available Formatters
 - DatetimeFormatter
 - ToStringFormatter
 
