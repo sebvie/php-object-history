@@ -14,6 +14,9 @@ class ObjectComparer implements ComparatorInterface
      */
     protected $objectFormatterHandler;
 
+    /**
+     * @return void
+     */
     public function __construct()
     {
         $this->objectFormatterHandler = new ObjectFormatterHandler();

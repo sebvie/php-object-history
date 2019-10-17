@@ -89,6 +89,10 @@ class CsvFileStorage implements StorageInterface
      */
     public function addObjectChanges(array $objectChanges): void
     {
+        if (empty($objectChanges)) {
+            return;
+        }
+
         $this->writeObjectChanges($objectChanges);
     }
 
