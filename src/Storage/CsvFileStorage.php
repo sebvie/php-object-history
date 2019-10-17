@@ -4,10 +4,19 @@ namespace PhpObjectHistory\Storage;
 
 use PhpObjectHistory\Entity\ObjectChange;
 use PhpObjectHistory\Formatter\ObjectFormatterHandler;
-use ReflectionObject;
 
 class CsvFileStorage implements StorageInterface
 {
+
+    /**
+     * @var string
+     */
+    protected $csvDelimiter = ';';
+
+    /**
+     * @var string
+     */
+    protected $csvEncoding = 'UTF-16LE';
 
     /**
      * @var string
@@ -52,20 +61,32 @@ class CsvFileStorage implements StorageInterface
     }
 
     /**
-     * @return string
-     */
-    public function getCsvFilePath(): string
-    {
-        return $this->csvFilePath;
-    }
-
-    /**
      * @param string $csvFilePath
      * @return CsvFileStorage
      */
     public function setCsvFilePath(string $csvFilePath): CsvFileStorage
     {
         $this->csvFilePath = $csvFilePath;
+        return $this;
+    }
+
+    /**
+     * @param string $csvDelimiter
+     * @return CsvFileStorage
+     */
+    public function setCsvDelimiter(string $csvDelimiter): CsvFileStorage
+    {
+        $this->csvDelimiter = $csvDelimiter;
+        return $this;
+    }
+
+    /**
+     * @param string $csvEncoding
+     * @return CsvFileStorage
+     */
+    public function setCsvEncoding(string $csvEncoding): CsvFileStorage
+    {
+        $this->csvEncoding = $csvEncoding;
         return $this;
     }
 
@@ -113,15 +134,18 @@ class CsvFileStorage implements StorageInterface
         $this->writeCsvLine($attributes);
     }
 
+    /**
+     * @param array $data
+     */
     protected function writeCsvLine(array $data): void
     {
         if (!$this->csvFileHandle) {
             $this->csvFileHandle = fopen($this->csvFilePath, 'w');
         }
         $data = array_map(function($cell){
-            return mb_convert_encoding($cell, 'UTF-16LE', 'UTF-8');
+            return mb_convert_encoding($cell, $this->csvEncoding, 'UTF-8');
         }, $data);
 
-        fputcsv($this->csvFileHandle, $data, ';');
+        fputcsv($this->csvFileHandle, $data, $this->csvDelimiter);
     }
 }
