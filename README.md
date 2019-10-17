@@ -71,7 +71,17 @@ class ToStringFormatter implements ObjectFormatterInterface
 }
 ```
 add the formatter:
+```
+$formatter = new CustomFormatter();
 
+$storage = new CsvFileStorage();
+$storage->setCsvFilePath($filePath);
+$storage->getObjectFormatterHandler()->addFormatter($formatter);
+
+$objectComparer = new ObjectComparer();
+$objectComparer->getObjectFormatterHandler()->addFormatter($formatter);
+
+```
 
 
 ## Implement custom Storages:

@@ -33,6 +33,14 @@ class ObjectComparer implements ComparatorInterface
     }
 
     /**
+     * @return ObjectFormatterHandlerInterface
+     */
+    public function getObjectFormatterHandler(): ObjectFormatterHandlerInterface
+    {
+        return $this->objectFormatterHandler;
+    }
+
+    /**
      * @param object $oldValue
      * @param object $newValue
      *

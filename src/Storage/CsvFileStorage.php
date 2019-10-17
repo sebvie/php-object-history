@@ -16,11 +16,6 @@ class CsvFileStorage implements StorageInterface
     /**
      * @var string
      */
-    protected $csvEncoding = 'UTF-16LE';
-
-    /**
-     * @var string
-     */
     protected $csvFilePath;
 
     /**
@@ -37,10 +32,27 @@ class CsvFileStorage implements StorageInterface
      * @var ObjectFormatterHandler
      */
     protected $objectFormatterHandler;
+
     /**
      * @var array
      */
     protected $propertyNames = [];
+
+    /**
+     * @return ObjectFormatterHandler
+     */
+    public function getObjectFormatterHandler(): ObjectFormatterHandler
+    {
+        return $this->objectFormatterHandler;
+    }
+
+    /**
+     * @param ObjectFormatterHandler $objectFormatterHandler
+     */
+    public function setObjectFormatterHandler(ObjectFormatterHandler $objectFormatterHandler): void
+    {
+        $this->objectFormatterHandler = $objectFormatterHandler;
+    }
 
     /**
      * @return void
@@ -67,26 +79,6 @@ class CsvFileStorage implements StorageInterface
     public function setCsvFilePath(string $csvFilePath): CsvFileStorage
     {
         $this->csvFilePath = $csvFilePath;
-        return $this;
-    }
-
-    /**
-     * @param string $csvDelimiter
-     * @return CsvFileStorage
-     */
-    public function setCsvDelimiter(string $csvDelimiter): CsvFileStorage
-    {
-        $this->csvDelimiter = $csvDelimiter;
-        return $this;
-    }
-
-    /**
-     * @param string $csvEncoding
-     * @return CsvFileStorage
-     */
-    public function setCsvEncoding(string $csvEncoding): CsvFileStorage
-    {
-        $this->csvEncoding = $csvEncoding;
         return $this;
     }
 
