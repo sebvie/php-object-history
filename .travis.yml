@@ -1,0 +1,60 @@
+# Project language
+language: php
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+    - php: 5.6
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+      env:
+        - COVERAGE=true
+    - php: 7.3
+
+
+  allow_failures:
+    - php: 5.6
+    - php: 7.0
+    - php: 7.1
+
+# Install composer dependencies,
+# Create database, schema and fixtures
+install:
+  # Install composer packages
+  - wget -c -nc --retry-connrefused --tries=0 https://getcomposer.org/composer.phar
+  - php -d memory_limit=-1 composer.phar install --no-interaction --no-suggest
+  # Install coveralls.phar
+  - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
+  - chmod +x coveralls.phar
+  - php coveralls.phar --version
+
+before_script:
+  - mkdir -p build/logs
+  - ls -al
+
+script:
+  - vendor/phpunit/phpunit/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+
+after_success:
+# Submit coverage report to Coveralls servers, see .coveralls.yml
+ - if [[ "$COVERAGE" = true ]]; then travis_retry php coveralls.phar -v ; fi
+# Submit coverage report to codecov.io
+ - if [[ "$COVERAGE" = true ]]; then bash <(curl -s https://codecov.io/bash) ; fi
+
+#after_failure:
+
+# Tell Travis CI to monitor only 'master' branch
+branches:
+  only: master
+
+# You can delete the cache using travis-ci web interface
+cache:
+  directories:
+  - vendor
+  - $HOME/.cache/composer
