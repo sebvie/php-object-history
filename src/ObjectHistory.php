@@ -39,6 +39,60 @@ class ObjectHistory
     }
 
     /**
+     * @return StorageInterface
+     */
+    public function getStorage(): StorageInterface
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param StorageInterface $storage
+     * @return ObjectHistory
+     */
+    public function setStorage(StorageInterface $storage): ObjectHistory
+    {
+        $this->storage = $storage;
+        return $this;
+    }
+
+    /**
+     * @return ComparatorInterface
+     */
+    public function getObjectComparer(): ComparatorInterface
+    {
+        return $this->objectComparer;
+    }
+
+    /**
+     * @param ComparatorInterface $objectComparer
+     * @return ObjectHistory
+     */
+    public function setObjectComparer(ComparatorInterface $objectComparer): ObjectHistory
+    {
+        $this->objectComparer = $objectComparer;
+        return $this;
+    }
+
+    /**
+     * @return object
+     */
+    public function getLastObject(): object
+    {
+        return $this->lastObject;
+    }
+
+    /**
+     * @param object $lastObject
+     * @return ObjectHistory
+     */
+    public function setLastObject(object $lastObject): ObjectHistory
+    {
+        $this->lastObject = $lastObject;
+        return $this;
+    }
+
+    /**
      * @param object $object
      */
     public function addObject(object $object)
