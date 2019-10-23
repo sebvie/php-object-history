@@ -39,22 +39,6 @@ class CsvFileStorage implements StorageInterface
     protected $propertyNames = [];
 
     /**
-     * @return ObjectFormatterHandler
-     */
-    public function getObjectFormatterHandler(): ObjectFormatterHandler
-    {
-        return $this->objectFormatterHandler;
-    }
-
-    /**
-     * @param ObjectFormatterHandler $objectFormatterHandler
-     */
-    public function setObjectFormatterHandler(ObjectFormatterHandler $objectFormatterHandler): void
-    {
-        $this->objectFormatterHandler = $objectFormatterHandler;
-    }
-
-    /**
      * @return void
      */
     public function __construct()
@@ -79,6 +63,58 @@ class CsvFileStorage implements StorageInterface
     public function setCsvFilePath(string $csvFilePath): CsvFileStorage
     {
         $this->csvFilePath = $csvFilePath;
+        return $this;
+    }
+
+    /**
+     * @return ObjectFormatterHandler
+     */
+    public function getObjectFormatterHandler(): ObjectFormatterHandler
+    {
+        return $this->objectFormatterHandler;
+    }
+
+    /**
+     * @param ObjectFormatterHandler $objectFormatterHandler
+     */
+    public function setObjectFormatterHandler(ObjectFormatterHandler $objectFormatterHandler): void
+    {
+        $this->objectFormatterHandler = $objectFormatterHandler;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCsvDelimiter(): string
+    {
+        return $this->csvDelimiter;
+    }
+
+    /**
+     * @param string $csvDelimiter
+     * @return CsvFileStorage
+     */
+    public function setCsvDelimiter(string $csvDelimiter): CsvFileStorage
+    {
+        $this->csvDelimiter = $csvDelimiter;
+        return $this;
+    }
+
+    /**
+     * @return resource
+     */
+    public function getCsvFileHandle()
+    {
+        return $this->csvFileHandle;
+    }
+
+    /**
+     * @param resource $csvFileHandle
+     * @return CsvFileStorage
+     */
+    public function setCsvFileHandle($csvFileHandle): CsvFileStorage
+    {
+        $this->csvFileHandle = $csvFileHandle;
         return $this;
     }
 
