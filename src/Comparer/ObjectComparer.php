@@ -30,7 +30,7 @@ class ObjectComparer implements ComparatorInterface
      * @param ObjectFormatterHandlerInterface $objectFormatterHandler
      * @return ObjectComparer
      */
-    public function setObjectFormatterHandler(ObjectFormatterHandlerInterface $objectFormatterHandler): ObjectComparer
+    public function setObjectFormatterHandler(ObjectFormatterHandlerInterface $objectFormatterHandler): ComparatorInterface
     {
         $this->objectFormatterHandler = $objectFormatterHandler;
         return $this;
@@ -56,7 +56,7 @@ class ObjectComparer implements ComparatorInterface
      * @param array $ignoreAttributes
      * @return ObjectComparer
      */
-    public function setIgnoreAttributes(array $ignoreAttributes): ObjectComparer
+    public function setIgnoreAttributes(array $ignoreAttributes): ComparatorInterface
     {
         $this->ignoreAttributes = $ignoreAttributes;
         return $this;
