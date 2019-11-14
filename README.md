@@ -142,4 +142,12 @@ class InMemoryStorage implements StorageInterface
 - DatetimeFormatter
 - ToStringFormatter
 
+## ignore object properties
+You can ignore changes of certian properties. This will not trigger an object change.
 
+This is useful when you have properties like timestamps which always change but can be ignored.
+```
+$ignoreAttributes = ['boolProperty'];
+$objectComparer = new ObjectComparer();
+$objectComparer->setIgnoreAttributes($ignoreAttributes);
+```

@@ -29,7 +29,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareEmptyOldValue(): void
+    public function testGetDiffEmptyOldValue(): void
     {
         $oldValue = new \stdClass();
         $newValue = new ObjectClassFixture();
@@ -45,7 +45,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareEmptyNewValue(): void
+    public function testGetDiffEmptyNewValue(): void
     {
         $oldValue = new ObjectClassFixture();
         $newValue = new \stdClass();
@@ -61,7 +61,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testComparePrivateAttribute(): void
+    public function testGetDiffPrivateAttribute(): void
     {
         $oldValueChange = 1;
         $newValueChange = 2;
@@ -84,7 +84,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareProtectedAttribute(): void
+    public function testGetDiffProtectedAttribute(): void
     {
         $oldValueChange = 1;
         $newValueChange = 2;
@@ -107,7 +107,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testComparePublicAttribute(): void
+    public function testGetDiffPublicAttribute(): void
     {
         $oldValueChange = 1;
         $newValueChange = 2;
@@ -130,7 +130,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testComparePropertyAdded(): void
+    public function testGetDiffPropertyAdded(): void
     {
         $addedPropertyName = 'addedProperty';
         $addedPropertyValue = 'addedPropertyValue';
@@ -153,7 +153,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareBoolAttribute(): void
+    public function testGetDiffBoolAttribute(): void
     {
         $oldValueChange = true;
         $newValueChange = false;
@@ -176,7 +176,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareBoolAttributeNotChanged(): void
+    public function testGetDiffBoolAttributeNotChanged(): void
     {
         $oldValueChange = true;
         $newValueChange = true;
@@ -193,7 +193,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareIntAttribute(): void
+    public function testGetDiffIntAttribute(): void
     {
         $oldValueChange = 1;
         $newValueChange = 2;
@@ -216,7 +216,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareIntAttributeNotChanged(): void
+    public function testGetDiffIntAttributeNotChanged(): void
     {
         $oldValueChange = -1;
         $newValueChange = -1;
@@ -233,7 +233,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareFloatAttribute(): void
+    public function testGetDiffFloatAttribute(): void
     {
         $oldValueChange = 1.1;
         $newValueChange = 1.0;
@@ -256,7 +256,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareFloatAttributeNotChanged(): void
+    public function testGetDiffFloatAttributeNotChanged(): void
     {
         $oldValueChange = -1.111111;
         $newValueChange = -1.111111;
@@ -273,7 +273,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareNullAttributeNotChanged(): void
+    public function testGetDiffNullAttributeNotChanged(): void
     {
         $oldValueChange = null;
         $newValueChange = null;
@@ -290,7 +290,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareArrayAttribute(): void
+    public function testGetDiffArrayAttribute(): void
     {
         $oldValueChange = [1, 2, 3];
         $newValueChange = [1, 2];
@@ -313,7 +313,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareArrayAttributeNotChanged(): void
+    public function testGetDiffArrayAttributeNotChanged(): void
     {
         $oldValueChange = [1, "2", 3];
         $newValueChange = [1, "2", 3];
@@ -330,7 +330,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareStringAttribute(): void
+    public function testGetDiffStringAttribute(): void
     {
         $oldValueChange = "foo";
         $newValueChange = "bar";
@@ -353,7 +353,7 @@ class ObjectComparerTest extends BaseTestCase
     /**
      * @return void
      */
-    public function testCompareStringAttributeNotChanged(): void
+    public function testGetDiffStringAttributeNotChanged(): void
     {
         $oldValueChange = "foo";
         $newValueChange = "foo";
@@ -361,6 +361,27 @@ class ObjectComparerTest extends BaseTestCase
         $oldValue->setStringProperty($oldValueChange);
         $newValue = new ObjectClassFixture();
         $newValue->setStringProperty($newValueChange);
+
+        $result = $this->subject->getDiff($oldValue, $newValue);
+
+        $this->assertEmpty($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetDiffIgnoreAttribute(): void
+    {
+        $ignoreAttributes = ['boolProperty'];
+
+        $this->subject->setIgnoreAttributes($ignoreAttributes);
+
+        $oldValueChange = true;
+        $newValueChange = false;
+        $oldValue = new ObjectClassFixture();
+        $oldValue->setBoolProperty($oldValueChange);
+        $newValue = new ObjectClassFixture();
+        $newValue->setBoolProperty($newValueChange);
 
         $result = $this->subject->getDiff($oldValue, $newValue);
 

@@ -8,6 +8,10 @@ use PhpObjectHistory\Formatter\ObjectFormatterHandlerInterface;
 
 class ObjectComparer implements ComparatorInterface
 {
+    /**
+     * @var array
+     */
+    protected $ignoreAttributes = [];
 
     /**
      * @var ObjectFormatterHandlerInterface
@@ -38,6 +42,24 @@ class ObjectComparer implements ComparatorInterface
     public function getObjectFormatterHandler(): ObjectFormatterHandlerInterface
     {
         return $this->objectFormatterHandler;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIgnoreAttributes(): array
+    {
+        return $this->ignoreAttributes;
+    }
+
+    /**
+     * @param array $ignoreAttributes
+     * @return ObjectComparer
+     */
+    public function setIgnoreAttributes(array $ignoreAttributes): ObjectComparer
+    {
+        $this->ignoreAttributes = $ignoreAttributes;
+        return $this;
     }
 
     /**
@@ -103,6 +125,29 @@ class ObjectComparer implements ComparatorInterface
                 $result[] = $objectChange;
             }
         }
+        $result = $this->removeIgnoredAttributes($result);
+
         return $result;
+    }
+
+    /**
+     * @param ObjectChange[] $objectChanges
+     * @return ObjectChange[]
+     */
+    protected function removeIgnoredAttributes(array $objectChanges): array
+    {
+        if (empty($this->ignoreAttributes)) {
+            return $objectChanges;
+        }
+
+        foreach ($objectChanges as $key => $objectChange) {
+            foreach ($this->ignoreAttributes as $ignoreAttribute) {
+                if ($objectChange->getAttribute() === $ignoreAttribute) {
+                    unset($objectChanges[$key]);
+                }
+            }
+        }
+
+        return $objectChanges;
     }
 }
