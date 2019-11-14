@@ -65,7 +65,7 @@ class ObjectComparerTest extends BaseTestCase
 
         $result = $this->subject->getDiff($oldValue, $newValue);
 
-        $this->assertEmpty( $result);
+        $this->assertEmpty($result);
     }
 
     /**
@@ -84,6 +84,6 @@ class ObjectComparerTest extends BaseTestCase
 
         $result = $this->subject->getDiff($oldValue, $newValue);
 
-        $this->assertEmpty( $result);
+        $this->assertEmpty($result);
     }
 }
