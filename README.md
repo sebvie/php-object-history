@@ -7,6 +7,10 @@
 The package records changes of a PHP object and persists it to a storage. 
 This can be useful if you have a stream of data and you only want the get the change set and throw away the other data to reduce memory usage.
 
+## Installation:
+```
+composer require sebvie/php-object-history
+```
 ## Example:
 
 Inititate Storage and Comparer:
